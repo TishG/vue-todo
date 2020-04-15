@@ -1,7 +1,23 @@
 <template>
   <div class="todos">
-    <div v-for="todo in todos" :key="todo.id">
-      <TodoItem :todo="todo" @del-todo="$emit('del-todo', todo.id)" />
+    <transition-group
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+      tag="div"
+    >
+      <div v-for="todo in todos" :key="todo.id" v-show="showAllTodos">
+        <TodoItem
+          :todo="todo"
+          @del-todo-message="$emit('del-todo-message', todo.id)"
+          @mark-complete="$emit('mark-complete', todo.id)"
+          @edit-todo="$emit('edit-todo', todo.id)"
+          @edited-todo="$emit('edited-todo', todo.id)"
+          @toggle-shown="$emit('toggle-shown', todo.id)"
+        />
+      </div>
+    </transition-group>
+    <div v-for="todo in filteredTodos" :key="todo.id" v-show="showFilteredTodos">
+      <TodoItem :todo="todo" />
     </div>
   </div>
 </template>
@@ -14,7 +30,7 @@ export default {
   components: {
     TodoItem
   },
-  props: ["todos"]
+  props: ["todos", "showAllTodos", "filteredTodos", "showFilteredTodos"]
 };
 </script>
 

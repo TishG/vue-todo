@@ -1,22 +1,21 @@
 <template>
   <footer>
-    <p>
-      &copy; Vue Todo {{year}} by
-      <span
-        @click="delayUrlLoad('https://latishagriffiths.com/', 1000);return false;"
-        class="personal-site-link"
-      >Tish Griffiths</span>
-    </p>
+    <p>{{ title }} &copy;&nbsp;{{ year }}</p>
     <span
-      @click="delayUrlLoad('https://github.com/TishG', 1000);return false;"
-      class="fa fa-github"
-    ></span>
+      @click="
+        delayUrlLoad('https://latishagriffiths.com/', 1000);
+        return false;
+      "
+    >
+      <i class="fas fa-link"></i>
+    </span>
   </footer>
 </template>
 
 <script>
 export default {
-  name: "Footer",
+  name: "MyFooter",
+  props: ["title"],
   computed: {
     year() {
       return new Date().getFullYear();
@@ -33,6 +32,13 @@ export default {
 </script>
 
 <style>
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /* IE10+ CSS styles go here */
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+}
 footer {
   display: flex;
   justify-content: space-between;
@@ -47,23 +53,21 @@ footer {
   font-size: 14px;
 }
 
-.fa-github,
-.github-link {
+ion-icon {
   transition: all 1s ease-in-out;
-  font-size: 24px;
+  font-size: 20px;
 }
 
-.github-link:hover,
-.fa-github:hover {
+ion-icon:hover {
   color: rgba(0, 0, 0, 1);
   cursor: pointer;
 }
 
-.fa-github:active {
+ion-icon:active {
   transform: scale(0.5);
 }
 
-.github-link {
+ion-icon {
   color: rgba(255, 255, 255, 1);
 }
 
